@@ -1,0 +1,33 @@
+name: contracts
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: contracts
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: v1.5.1
+      - name: Format
+        run: forge fmt --check
+      - name: Build (fails on warnings)
+        run: |
+          forge build --sizes 2>&1 | tee build.log
+          if grep -qE "^(warning|note)" build.log; then echo "Build produced warnings"; exit 1; fi
+      - name: Unit, fuzz and invariant tests
+        run: forge test
+        env:
+          FOUNDRY_PROFILE: ci
+      - name: Fork tests (Robinhood Chain mainnet)
+        run: forge test --match-path 'test/fork/*' --fork-url "${RPC_URL:-https://rpc.mainnet.chain.robinhood.com}"
+        env:
+          RPC_URL: ${{ secrets.RPC_URL }}

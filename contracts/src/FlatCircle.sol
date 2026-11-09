@@ -240,7 +240,9 @@ contract FlatCircle is IFlatCircleEvents, ReentrancyGuard {
     /// Unpaid members are covered by their deposit if they have one; either way their bond burns.
     function closeRound() external nonReentrant {
         if (state != State.Active) revert NotActive();
-        if (block.timestamp < roundEndsAt && paidCount[currentRound] < _members.length) revert RoundNotOver();
+        if (block.timestamp < roundEndsAt && paidCount[currentRound] < _members.length) {
+            revert RoundNotOver();
+        }
         _closeRound();
     }
 

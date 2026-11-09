@@ -50,7 +50,9 @@ contract FuzzLifecycleTest is Base {
         (ok,) = address(c).call(data);
     }
 
-    function testFuzz_lifecycle(uint8 nRaw, bool deposit, bool fair, uint256 payBits, uint256 swapBits) public {
+    function testFuzz_lifecycle(uint8 nRaw, bool deposit, bool fair, uint256 payBits, uint256 swapBits)
+        public
+    {
         uint8 n = uint8(bound(nRaw, 2, 8));
         FlatCircle c = _create(_params(n, fair ? OrderMode.FairDraw : OrderMode.JoinOrder, deposit));
         _joinFirst(c, n);
@@ -67,8 +69,11 @@ contract FuzzLifecycleTest is Base {
                 address a = m[(swapBits >> 16) % n];
                 address b = m[(swapBits >> 24) % n];
                 if (_try(c, a, abi.encodeCall(FlatCircle.requestSwap, (b)))) {
-                    if ((swapBits >> (32 + r)) & 1 == 1) _try(c, b, abi.encodeCall(FlatCircle.acceptSwap, (a)));
-                    else if ((swapBits >> (48 + r)) & 1 == 1) _try(c, b, abi.encodeCall(FlatCircle.declineSwap, (a)));
+                    if ((swapBits >> (32 + r)) & 1 == 1) {
+                        _try(c, b, abi.encodeCall(FlatCircle.acceptSwap, (a)));
+                    } else if ((swapBits >> (48 + r)) & 1 == 1) {
+                        _try(c, b, abi.encodeCall(FlatCircle.declineSwap, (a)));
+                    }
                     // otherwise leave it pending
                 }
                 _check(c);

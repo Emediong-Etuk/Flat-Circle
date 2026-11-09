@@ -7,7 +7,10 @@ import {CircleSummary, IFlatCircleEvents, OrderMode, State, Stats} from "../src/
 
 /// @notice Test 1: full happy path in JoinOrder with exact balances at every step.
 abstract contract LifecycleTest is Base {
-    function _assertBalances(FlatCircle c, int256 da, int256 db, int256 dc, uint256 circleUsdg) internal view {
+    function _assertBalances(FlatCircle c, int256 da, int256 db, int256 dc, uint256 circleUsdg)
+        internal
+        view
+    {
         uint256 s = _usdgStart();
         assertEq(int256(usdg.balanceOf(alice)), int256(s) + da, "alice usdg");
         assertEq(int256(usdg.balanceOf(bob)), int256(s) + db, "bob usdg");

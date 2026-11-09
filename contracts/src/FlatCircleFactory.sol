@@ -188,7 +188,9 @@ contract FlatCircleFactory is IFlatCircleFactory, ReentrancyGuard {
         uint256 nameLen = bytes(p.name).length;
         if (nameLen == 0 || nameLen > MAX_NAME_BYTES) revert InvalidParams();
         if (p.contribution == 0 || p.contribution > maxContribution) revert InvalidParams();
-        if (p.roundDuration < MIN_ROUND_DURATION || p.roundDuration > MAX_ROUND_DURATION) revert InvalidParams();
+        if (p.roundDuration < MIN_ROUND_DURATION || p.roundDuration > MAX_ROUND_DURATION) {
+            revert InvalidParams();
+        }
         if (p.maxMembers < MIN_MEMBERS || p.maxMembers > MAX_MEMBERS) revert InvalidParams();
         if (p.baseBond == 0 || p.baseBond > MAX_WIF_PARAM) revert InvalidParams();
         if (p.swapFee > MAX_WIF_PARAM) revert InvalidParams();

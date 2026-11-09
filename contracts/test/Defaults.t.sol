@@ -3,7 +3,7 @@ pragma solidity 0.8.28;
 
 import {Base} from "./Base.t.sol";
 import {FlatCircle} from "../src/FlatCircle.sol";
-import {IFlatCircleEvents, MemberView, OrderMode, State, Stats} from "../src/IFlatCircle.sol";
+import {IFlatCircleEvents, MemberView, State, Stats} from "../src/IFlatCircle.sol";
 
 /// @notice Tests 3-5: missed rounds, shortfalls, debt recovery and the early-recipient default.
 contract DefaultsTest is Base {
