@@ -1,0 +1,12 @@
+{
+  "name": "flat-circle",
+  "private": true,
+  "packageManager": "pnpm@10.28.0",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "build:contracts": "cd contracts && forge build",
+    "test:contracts": "cd contracts && forge test",
+    "test:fork": "cd contracts && forge test --match-path 'test/fork/*' --fork-url ${RPC_URL:-https://rpc.mainnet.chain.robinhood.com}",
+    "coverage": "cd contracts && forge coverage --report summary"
+  }
+}
