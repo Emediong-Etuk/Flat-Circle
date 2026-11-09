@@ -1,0 +1,40 @@
+# --- secrets: never commit ---
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+demo-wallets.json
+**/demo-wallets.json
+*.keystore
+keystore/
+keystores/
+**/keystore*/
+*.pem
+*.key
+
+# --- node / next ---
+node_modules/
+.next/
+out/
+.vercel/
+*.tsbuildinfo
+next-env.d.ts
+coverage/
+playwright-report/
+test-results/
+
+# --- foundry ---
+contracts/out/
+contracts/cache/
+contracts/broadcast/*/31337/
+contracts/broadcast/**/dry-run/
+contracts/lcov.info
+
+# --- misc ---
+.DS_Store
+*.log
+.idea/
+.vscode/*
+!.vscode/extensions.json
